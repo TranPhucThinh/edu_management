@@ -1,0 +1,242 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ==========================
+// 1. USER (Giáo viên/Admin)
+// ==========================
+model User {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  password String
+  fullName String?
+  phone    String?
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  courses     Course[]
+  students    Student[]
+  classes     Class[]
+  invoiceLogs InvoiceLog[]
+}
+
+// ==========================
+// 2. ACADEMIC STRUCTURE
+// ==========================
+enum TuitionType {
+  PER_SESSION
+  MONTHLY_FIXED
+}
+
+model Course {
+  id   String @id @default(uuid())
+  name String
+
+  tuitionType TuitionType @default(MONTHLY_FIXED)
+  defaultFee  Decimal     @default(0) @db.Decimal(10, 2)
+
+  teacherId String
+  teacher   User   @relation(fields: [teacherId], references: [id])
+
+  classes Class[]
+
+  isActive Boolean  @default(true)
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+model Class {
+  id   String @id @default(uuid())
+  name String
+
+  // Override settings (Nếu null thì lấy theo Course)
+  tuitionType TuitionType?
+  defaultFee  Decimal?     @db.Decimal(10, 2)
+
+  schedule Json?   @db.JsonB
+  isActive Boolean @default(true)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  teacherId String
+  teacher   User   @relation(fields: [teacherId], references: [id])
+
+  enrollments Enrollment[]
+  sessions    ClassSession[]
+  invoices    Invoice[]
+
+  createAt DateTime @default(now())
+}
+
+// ==========================
+// 3. STUDENT & ENROLLMENT
+// ==========================
+model Student {
+  id          String  @id @default(uuid())
+  fullName    String
+  phone       String?
+  parentName  String?
+  parentPhone String?
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  teacherId String
+  teacher   User   @relation(fields: [teacherId], references: [id])
+
+  enrollments Enrollment[]
+  attendances Attendance[]
+  invoices    Invoice[]
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+model Enrollment {
+  id String @id @default(uuid())
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  // overide fee
+  customFee Decimal? @db.Decimal(10, 2)
+
+  status   EnrollmentStatus @default(ACTIVE)
+  isActive Boolean          @default(true)
+  joinedAt DateTime         @default(now())
+
+  feeHistory FeeHistory[] // Lịch sử thay đổi giá
+
+  @@unique([studentId, classId])
+}
+
+model FeeHistory {
+  id           String     @id @default(uuid())
+  enrollmentId String
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id])
+
+  oldFee Decimal? @db.Decimal(10, 2)
+  newFee Decimal? @db.Decimal(10, 2)
+  reason String? // VD: "Hết hạn khuyến mãi"
+
+  changedAt DateTime @default(now())
+}
+
+// ==========================
+// 4. ATTENDANCE (Hoạt động hàng ngày)
+// ==========================
+model ClassSession {
+  id      String @id @default(uuid())
+  classId String
+  class   Class  @relation(fields: [classId], references: [id])
+
+  date DateTime
+  note String?
+
+  attendances Attendance[]
+
+  createdAt DateTime @default(now())
+}
+
+model Attendance {
+  id            String       @id @default(uuid())
+  sessionId     String
+  session       ClassSession @relation(fields: [sessionId], references: [id])
+  studentId     String
+  student       Student      @relation(fields: [studentId], references: [id])
+  isPresent     Boolean      @default(true)
+  hasPermission Boolean      @default(false)
+
+  sessionFeeSnapshot Decimal @default(0) @db.Decimal(10, 2)
+  note               String?
+
+  createdAt DateTime @default(now())
+
+  @@unique([sessionId, studentId])
+}
+
+// ==========================
+// 5. FINANCE (Hóa đơn & Thanh toán)
+// ==========================
+
+enum PaymentStatus {
+  PENDING // Chưa đóng
+  PARTIAL // Đóng 1 phần
+  PAID // Đóng đủ
+  OVERDUE // Quá hạn
+}
+
+model Invoice {
+  id   String @id @default(uuid())
+  code String // VD: INV-202402-001
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+  classId   String
+  class     Class   @relation(fields: [classId], references: [id])
+
+  period String // Kỳ thu: "2024-02"
+  amount Decimal @db.Decimal(10, 2) // Tổng tiền phải thu
+
+  status  PaymentStatus @default(PENDING)
+  dueDate DateTime? // Hạn chót đóng tiền
+  paidAt  DateTime? // Ngày hoàn tất (khi status = PAID)
+
+  payments Payment[] // Một hóa đơn có nhiều lần thanh toán
+  logs     InvoiceLog[] // Lịch sử sửa hóa đơn
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([studentId, classId, period])
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  E_WALLET
+}
+
+model Payment {
+  id        String  @id @default(uuid())
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  amount Decimal       @db.Decimal(10, 2) // Số tiền đóng lần này
+  method PaymentMethod @default(BANK_TRANSFER)
+  note   String? // VD: "Mẹ ck qua VCB"
+
+  createdAt DateTime @default(now())
+}
+
+// Bảng Audit: Ai sửa hóa đơn, sửa cái gì?
+model InvoiceLog {
+  id        String  @id @default(uuid())
+  invoiceId String
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  oldStatus PaymentStatus?
+  newStatus PaymentStatus?
+
+  changedById String
+  changedBy   User   @relation(fields: [changedById], references: [id])
+
+  changedAt DateTime @default(now())
+}
