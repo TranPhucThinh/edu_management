@@ -1,4 +1,9 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { ErrorCodes } from 'src/common/error-codes';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { EnrollStudentDto } from './dto/enroll-student.dto';
@@ -41,7 +46,7 @@ export class ClassesService {
       });
 
       if (!classInfo) {
-        throw new Error('Lớp học không tồn tại');
+        throw new NotFoundException(ErrorCodes.CLASS.NOT_FOUND);
       }
 
       const existingEnrollment = await tx.enrollment.findUnique({
@@ -54,7 +59,7 @@ export class ClassesService {
       });
 
       if (existingEnrollment) {
-        throw new ConflictException('Học sinh đã được ghi danh vào lớp này');
+        throw new ConflictException(ErrorCodes.CLASS.STUDENT_ALREADY_ENROLLED);
       }
 
       return tx.enrollment.create({

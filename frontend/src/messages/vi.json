@@ -1,0 +1,53 @@
+{
+  "Api": {
+    "networkError": "Không thể kết nối đến máy chủ. Vui lòng kiểm tra mạng!",
+    "defaultError": "Đã có lỗi xảy ra",
+    "sessionExpired": "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
+    "noPermission": "Bạn không có quyền thực hiện hành động này!",
+    "notFound": "Không tìm thấy dữ liệu yêu cầu!",
+    "serverError": "Lỗi hệ thống máy chủ. Đội ngũ kỹ thuật đang xử lý!",
+    "unknownError": "Lỗi không xác định: {message}"
+  },
+  "Errors": {
+    "AUTH__INVALID_CREDENTIALS": "Email hoặc mật khẩu không đúng.",
+    "AUTH__ACCESS_DENIED": "Truy cập bị từ chối.",
+    "AUTH__REFRESH_TOKEN_EXPIRED": "Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.",
+    "CLASS__NOT_FOUND": "Lớp học không tồn tại.",
+    "CLASS__STUDENT_ALREADY_ENROLLED": "Học sinh đã được ghi danh vào lớp này.",
+    "INVOICE__DUPLICATE_PERIOD": "Đã tồn tại phiếu thu cho kỳ này.",
+    "INVOICE__STUDENT_NOT_ENROLLED": "Học sinh chưa ghi danh vào lớp này.",
+    "PAYMENT__INVOICE_NOT_FOUND": "Hóa đơn không tồn tại.",
+    "PAYMENT__INVOICE_ALREADY_PAID": "Hóa đơn này đã thanh toán đủ rồi!"
+  },
+  "Common": {
+    "appName": "Edu Manager",
+    "loading": "Đang xử lý...",
+    "support": "Hỗ trợ kỹ thuật"
+  },
+  "Login": {
+    "title": "Chào mừng trở lại!",
+    "description": "Nhập email của bạn để truy cập hệ thống quản lý.",
+    "email": "Email",
+    "emailPlaceholder": "example@domain.com",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "submit": "Đăng nhập ngay",
+    "needHelp": "Bạn gặp sự cố? Liên hệ",
+    "validation": {
+      "emailRequired": "Vui lòng nhập email.",
+      "emailInvalid": "Email không đúng định dạng.",
+      "passwordMin": "Mật khẩu phải có ít nhất 6 ký tự."
+    },
+    "invalidCredentials": "Email hoặc mật khẩu không đúng."
+  },
+  "Metadata": {
+    "title": "Teacher App",
+    "description": "Education Management SaaS"
+  },
+  "Nav": {
+    "home": "Trang chủ",
+    "classes": "Lớp học",
+    "students": "Học sinh",
+    "finance": "Tài chính"
+  }
+}

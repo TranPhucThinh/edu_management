@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ErrorCodes } from 'src/common/error-codes';
 import { PaymentStatus } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreatePaymentDto } from './dto/create-payment.dto';
@@ -17,9 +18,10 @@ export class PaymentsService {
       include: { payments: true },
     });
 
-    if (!invoice) throw new NotFoundException('Hóa đơn không tồn tại');
+    if (!invoice)
+      throw new NotFoundException(ErrorCodes.PAYMENT.INVOICE_NOT_FOUND);
     if (invoice.status === PaymentStatus.PAID)
-      throw new BadRequestException('Hóa đơn này đã thanh toán đủ rồi!');
+      throw new BadRequestException(ErrorCodes.PAYMENT.INVOICE_ALREADY_PAID);
 
     const currentPaid = invoice.payments.reduce(
       (sum, p) => sum + Number(p.amount),

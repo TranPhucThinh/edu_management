@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ErrorCodes } from 'src/common/error-codes';
 import { PaymentStatus } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateInvoiceDto } from './dto/create-invoice.dto';
@@ -22,7 +23,7 @@ export class InvoicesService {
     });
 
     if (existingInvoice) {
-      throw new ConflictException(`Đã tồn tại phiếu thu cho kỳ ${dto.period}`);
+      throw new ConflictException(ErrorCodes.INVOICE.DUPLICATE_PERIOD);
     }
 
     // 2. Lấy thông tin Enrollment để biết giá tiền
@@ -43,7 +44,7 @@ export class InvoicesService {
     });
 
     if (!enrollment) {
-      throw new NotFoundException('Học sinh chưa ghi danh vào lớp này');
+      throw new NotFoundException(ErrorCodes.INVOICE.STUDENT_NOT_ENROLLED);
     }
 
     // 3. Logic tính tiền (Pricing Strategy)

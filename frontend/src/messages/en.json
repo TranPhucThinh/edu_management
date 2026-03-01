@@ -1,0 +1,53 @@
+{
+  "Api": {
+    "networkError": "Cannot connect to the server. Please check your network!",
+    "defaultError": "An error occurred",
+    "sessionExpired": "Your session has expired. Please sign in again.",
+    "noPermission": "You do not have permission to perform this action!",
+    "notFound": "The requested data was not found!",
+    "serverError": "Server error. Our team is working on it!",
+    "unknownError": "Unknown error: {message}"
+  },
+  "Errors": {
+    "AUTH__INVALID_CREDENTIALS": "Incorrect email or password.",
+    "AUTH__ACCESS_DENIED": "Access denied.",
+    "AUTH__REFRESH_TOKEN_EXPIRED": "Your session has expired. Please sign in again.",
+    "CLASS__NOT_FOUND": "Class not found.",
+    "CLASS__STUDENT_ALREADY_ENROLLED": "This student is already enrolled in this class.",
+    "INVOICE__DUPLICATE_PERIOD": "An invoice already exists for this period.",
+    "INVOICE__STUDENT_NOT_ENROLLED": "Student is not enrolled in this class.",
+    "PAYMENT__INVOICE_NOT_FOUND": "Invoice not found.",
+    "PAYMENT__INVOICE_ALREADY_PAID": "This invoice has already been fully paid."
+  },
+  "Common": {
+    "appName": "Edu Manager",
+    "loading": "Processing...",
+    "support": "Technical Support"
+  },
+  "Login": {
+    "title": "Welcome back!",
+    "description": "Enter your email to access the management system.",
+    "email": "Email",
+    "emailPlaceholder": "example@domain.com",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "submit": "Sign in",
+    "needHelp": "Having trouble? Contact",
+    "validation": {
+      "emailRequired": "Please enter your email.",
+      "emailInvalid": "Invalid email format.",
+      "passwordMin": "Password must be at least 6 characters."
+    },
+    "invalidCredentials": "Email or password is incorrect."
+  },
+  "Metadata": {
+    "title": "Teacher App",
+    "description": "Education Management SaaS"
+  },
+  "Nav": {
+    "home": "Dashboard",
+    "classes": "Classes",
+    "students": "Students",
+    "finance": "Finance"
+  }
+}
