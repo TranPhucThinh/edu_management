@@ -10,16 +10,16 @@ import {
 import { ClassesService } from './classes.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { EnrollStudentDto } from './dto/enroll-student.dto';
-import { MOCK_TEACHER_ID } from 'src/constants';
+import { GetTeacherId } from 'src/common/decorators/get-user.decorator';
 
 @Controller('classes')
 export class ClassesController {
-  constructor(private readonly classesService: ClassesService) {}
+  constructor(private readonly classesService: ClassesService) { }
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  create(@Body() createClassDto: CreateClassDto) {
-    return this.classesService.create(createClassDto, MOCK_TEACHER_ID);
+  create(@Body() createClassDto: CreateClassDto, @GetTeacherId() teacherId: string) {
+    return this.classesService.create(createClassDto, teacherId);
   }
 
   @Get(':id')

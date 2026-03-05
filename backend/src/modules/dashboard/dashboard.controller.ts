@@ -1,13 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
 import { DashboardService } from './dashboard.service';
-import { MOCK_TEACHER_ID } from 'src/constants';
+import { GetTeacherId } from 'src/common/decorators/get-user.decorator';
 
 @Controller('dashboard')
 export class DashboardController {
-  constructor(private readonly dashboardService: DashboardService) {}
+  constructor(private readonly dashboardService: DashboardService) { }
 
   @Get('stats')
-  getStats() {
-    return this.dashboardService.getStats(MOCK_TEACHER_ID);
+  getStats(@GetTeacherId() teacherId: string) {
+    return this.dashboardService.getStats(teacherId);
   }
 }

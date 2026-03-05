@@ -6,6 +6,7 @@ import {
 import { ErrorCodes } from 'src/common/error-codes';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { JWT_SECRET } from 'src/common/jwt-constants';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
@@ -87,7 +88,7 @@ export class AuthService {
 
   async refreshToken(rt: string) {
     const payload = this.jwtService.verify(rt, {
-      secret: process.env.JWT_SECRET || '',
+      secret: JWT_SECRET,
     });
 
     const userId = payload.sub;

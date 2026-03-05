@@ -6,22 +6,22 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { GetTeacherId } from 'src/common/decorators/get-user.decorator';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
-import { MOCK_TEACHER_ID } from 'src/constants';
 
 @Controller('courses')
 export class CoursesController {
-  constructor(private readonly coursesService: CoursesService) {}
+  constructor(private readonly coursesService: CoursesService) { }
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  create(@Body() createCourseDto: CreateCourseDto) {
-    return this.coursesService.create(MOCK_TEACHER_ID, createCourseDto);
+  create(@Body() createCourseDto: CreateCourseDto, @GetTeacherId() teacherId: string) {
+    return this.coursesService.create(teacherId, createCourseDto);
   }
 
   @Get()
-  findAll() {
-    return this.coursesService.findAll(MOCK_TEACHER_ID);
+  findAll(@GetTeacherId() teacherId: string) {
+    return this.coursesService.findAll(teacherId);
   }
 }

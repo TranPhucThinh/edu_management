@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { StudentsService } from './students.service';
 import { CreateStudentDto } from './dto/create-student.dto';
-import { MOCK_TEACHER_ID } from 'src/constants';
+import { GetTeacherId } from 'src/common/decorators/get-user.decorator';
 
 @Controller('students')
 export class StudentsController {
@@ -17,12 +17,12 @@ export class StudentsController {
 
   @Post()
   @UsePipes(new ValidationPipe({ transform: true }))
-  create(@Body() createStudentDto: CreateStudentDto) {
-    return this.studentsService.create(MOCK_TEACHER_ID, createStudentDto);
+  create(@Body() createStudentDto: CreateStudentDto, @GetTeacherId() teacherId: string) {
+    return this.studentsService.create(teacherId, createStudentDto);
   }
 
   @Get()
-  findAll(@Query('search') search?: string) {
-    return this.studentsService.findAll(MOCK_TEACHER_ID, search);
+  findAll(@GetTeacherId() teacherId: string, @Query('search') search?: string) {
+    return this.studentsService.findAll(teacherId, search);
   }
 }
