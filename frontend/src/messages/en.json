@@ -20,7 +20,11 @@
     "INVOICE__DUPLICATE_PERIOD": "An invoice already exists for this period.",
     "INVOICE__STUDENT_NOT_ENROLLED": "Student is not enrolled in this class.",
     "PAYMENT__INVOICE_NOT_FOUND": "Invoice not found.",
-    "PAYMENT__INVOICE_ALREADY_PAID": "This invoice has already been fully paid."
+    "PAYMENT__INVOICE_ALREADY_PAID": "This invoice has already been fully paid.",
+    "VALIDATION__INVALID_EMAIL": "Invalid email format.",
+    "VALIDATION__PASSWORD_TOO_SHORT": "Password is too short (minimum 3 characters).",
+    "VALIDATION__REQUIRED": "This field is required.",
+    "VALIDATION__INVALID_INPUT": "Invalid input."
   },
   "Common": {
     "appName": "Edu Manager",

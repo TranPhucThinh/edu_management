@@ -7,6 +7,7 @@ import {
   IsString,
   Min,
 } from 'class-validator';
+import { ErrorCodes } from '../../../common/error-codes';
 
 export enum TuitionType {
   PER_SESSION = 'PER_SESSION',
@@ -15,7 +16,7 @@ export enum TuitionType {
 
 export class CreateCourseDto {
   @IsString()
-  @IsNotEmpty({ message: 'Tên khóa học không được để trống' })
+  @IsNotEmpty({ message: ErrorCodes.VALIDATION.REQUIRED })
   name: string;
 
   @IsEnum(TuitionType)

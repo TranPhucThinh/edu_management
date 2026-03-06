@@ -5,14 +5,15 @@ import {
   IsString,
   IsUUID,
 } from 'class-validator';
+import { ErrorCodes } from '../../../common/error-codes';
 
 export class CreateClassDto {
   @IsString()
-  @IsNotEmpty({ message: 'Tên lớp không được để trống' })
+  @IsNotEmpty({ message: ErrorCodes.VALIDATION.REQUIRED })
   name: string;
 
   @IsUUID()
-  @IsNotEmpty({ message: 'Phải chọn khóa học' })
+  @IsNotEmpty({ message: ErrorCodes.VALIDATION.REQUIRED })
   courseId: string;
 
   @IsArray()

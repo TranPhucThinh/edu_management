@@ -11,6 +11,9 @@ type ApiKey =
   | "serverError"
   | "unknownError";
 
+export type FieldError = { field: string; code: string };
+export type FieldMessage = { field: string; message: string };
+
 const messages: Record<"en" | "vi", Record<ApiKey, string>> = {
   en: (en as { Api: Record<ApiKey, string> }).Api,
   vi: (vi as { Api: Record<ApiKey, string> }).Api,
@@ -56,11 +59,16 @@ export function getSuccessMessage(
 ): string {
   if (!messageKey) return fallback ?? "";
   const locale = getLocale();
-  return successMessages[locale]?.[messageKey] ?? successMessages.vi?.[messageKey] ?? fallback ?? messageKey;
+  return (
+    successMessages[locale]?.[messageKey] ??
+    successMessages.vi?.[messageKey] ??
+    fallback ??
+    messageKey
+  );
 }
 
 /**
- * Resolve a backend errorCode (e.g. "AUTH.INVALID_CREDENTIALS") to
+ * Resolve a backend errorCode (e.g. "AUTH__INVALID_CREDENTIALS") to
  * the locale-aware translation. Falls back to `fallbackMessage` if
  * the code is not found in the Errors namespace.
  */
@@ -72,6 +80,18 @@ export function getErrorMessage(
   const locale = getLocale();
 
   return errorMessages[locale]?.[errorCode] ?? fallbackMessage ?? errorCode;
+}
+
+/**
+ * Map an array of { field, code } from the backend into { field, message }
+ * with locale-aware translations. Use this to set form errors after a 400.
+ */
+export function getValidationErrors(errors: FieldError[]): FieldMessage[] {
+  const locale = getLocale();
+  return errors.map(({ field, code }) => ({
+    field,
+    message: errorMessages[locale]?.[code] ?? errorMessages.vi?.[code] ?? code,
+  }));
 }
 
 export function getLocaleForRedirect(): string {

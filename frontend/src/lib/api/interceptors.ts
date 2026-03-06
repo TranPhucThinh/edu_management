@@ -7,6 +7,7 @@ import {
   getApiMessage,
   getErrorMessage,
   getLocaleForRedirect,
+  type FieldError,
 } from "../api-messages";
 import { apiClient, authClient } from "./axios-client";
 
@@ -83,6 +84,9 @@ apiClient.interceptors.response.use(
     const { status, data } = error.response;
     const errorCode: string | undefined = data?.errorCode;
     const rawMessage = data?.message;
+    const fieldErrors: FieldError[] | undefined = Array.isArray(data?.errors)
+      ? (data.errors as FieldError[])
+      : undefined;
     const message = getErrorMessage(
       errorCode,
       typeof rawMessage === "string" ? rawMessage : undefined,
@@ -128,7 +132,8 @@ apiClient.interceptors.response.use(
       typeof url === "string" && url.includes("/auth/login");
     switch (status) {
       case 400:
-        if (!isLoginRequest && !Array.isArray(rawMessage)) {
+        // Suppress toast for field-level validation errors — let forms handle them
+        if (!isLoginRequest && !fieldErrors) {
           toast.warning(message);
         }
         break;

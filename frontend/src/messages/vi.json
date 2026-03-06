@@ -20,7 +20,11 @@
     "INVOICE__DUPLICATE_PERIOD": "Đã tồn tại phiếu thu cho kỳ này.",
     "INVOICE__STUDENT_NOT_ENROLLED": "Học sinh chưa ghi danh vào lớp này.",
     "PAYMENT__INVOICE_NOT_FOUND": "Hóa đơn không tồn tại.",
-    "PAYMENT__INVOICE_ALREADY_PAID": "Hóa đơn này đã thanh toán đủ rồi!"
+    "PAYMENT__INVOICE_ALREADY_PAID": "Hóa đơn này đã thanh toán đủ rồi!",
+    "VALIDATION__INVALID_EMAIL": "Email không đúng định dạng.",
+    "VALIDATION__PASSWORD_TOO_SHORT": "Mật khẩu quá ngắn (tối thiểu 3 ký tự).",
+    "VALIDATION__REQUIRED": "Trường này không được để trống.",
+    "VALIDATION__INVALID_INPUT": "Dữ liệu nhập không hợp lệ."
   },
   "Common": {
     "appName": "Edu Manager",

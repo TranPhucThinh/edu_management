@@ -1,8 +1,9 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ErrorCodes } from '../../../common/error-codes';
 
 export class CreateStudentDto {
   @IsString()
-  @IsNotEmpty({ message: 'Tên học sinh không được để trống' })
+  @IsNotEmpty({ message: ErrorCodes.VALIDATION.REQUIRED })
   fullName: string;
 
   @IsString()
