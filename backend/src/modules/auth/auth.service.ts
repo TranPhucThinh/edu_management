@@ -16,7 +16,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   /** Access token TTL: mặc định 15m, có thể set JWT_ACCESS_EXPIRES_IN=30s để test refresh nhanh */
   private getAccessTokenExpiresIn(): string | number {
@@ -115,5 +115,16 @@ export class AuthService {
     }
 
     return this.generateAndSaveTokens(user.id, user.email, decoded.exp);
+  }
+
+  async logout(userId: string) {
+    await this.prisma.user.updateMany(
+      {
+        where: { id: userId, refreshToken: { not: null } },
+        data: { refreshToken: null }
+      },
+    )
+
+    return { messageKey: 'AUTH__LOGOUT_SUCCESS' };
   }
 }

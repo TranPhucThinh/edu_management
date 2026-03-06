@@ -40,7 +40,6 @@ export class AuthGuard implements CanActivate {
         email: payload.email
       }
     } catch (error) {
-      console.log("🚀 ~ AuthGuard ~ canActivate ~ error:", error)
       throw new UnauthorizedException(ErrorCodes.AUTH.ACCESS_DENIED)
     }
 

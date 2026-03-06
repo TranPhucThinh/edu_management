@@ -16,6 +16,11 @@ const messages: Record<"en" | "vi", Record<ApiKey, string>> = {
   vi: (vi as { Api: Record<ApiKey, string> }).Api,
 };
 
+const successMessages: Record<"en" | "vi", Record<string, string>> = {
+  en: (en as { Success?: Record<string, string> }).Success ?? {},
+  vi: (vi as { Success?: Record<string, string> }).Success ?? {},
+};
+
 const errorMessages: Record<"en" | "vi", Record<string, string>> = {
   en: (en as { Errors: Record<string, string> }).Errors,
   vi: (vi as { Errors: Record<string, string> }).Errors,
@@ -39,6 +44,19 @@ export function getApiMessage(
     return text.replace("{message}", params.message);
   }
   return text;
+}
+
+/**
+ * Resolve a backend success messageKey (e.g. "AUTH__LOGOUT_SUCCESS") to
+ * the locale-aware translation. Falls back to `messageKey` if not in Success.
+ */
+export function getSuccessMessage(
+  messageKey: string | undefined,
+  fallback?: string,
+): string {
+  if (!messageKey) return fallback ?? "";
+  const locale = getLocale();
+  return successMessages[locale]?.[messageKey] ?? successMessages.vi?.[messageKey] ?? fallback ?? messageKey;
 }
 
 /**

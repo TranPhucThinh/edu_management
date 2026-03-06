@@ -49,6 +49,7 @@ function handleForceLogout(): void {
   Cookies.remove("accessToken", { path: "/" });
   Cookies.remove("refreshToken", { path: "/" });
   Cookies.remove("fullName", { path: "/" });
+  Cookies.remove("teacherId", { path: "/" });
   if (typeof window !== "undefined") {
     window.location.href = `/${getLocaleForRedirect()}/login`;
   }

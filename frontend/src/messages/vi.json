@@ -8,6 +8,9 @@
     "serverError": "Lỗi hệ thống máy chủ. Đội ngũ kỹ thuật đang xử lý!",
     "unknownError": "Lỗi không xác định: {message}"
   },
+  "Success": {
+    "AUTH__LOGOUT_SUCCESS": "Đăng xuất thành công."
+  },
   "Errors": {
     "AUTH__INVALID_CREDENTIALS": "Email hoặc mật khẩu không đúng.",
     "AUTH__ACCESS_DENIED": "Truy cập bị từ chối.",

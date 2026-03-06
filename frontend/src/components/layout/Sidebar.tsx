@@ -4,6 +4,7 @@ import { GraduationCap, LogOut, Settings } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
+import { toast } from "sonner";
 
 import {
   Avatar,
@@ -13,7 +14,16 @@ import {
 import { Button } from "@/src/components/ui/button";
 import { items } from "@/src/constants/Nav";
 import { Link, useRouter } from "@/src/i18n/navigation";
+import { api } from "@/src/lib/api";
+import { getSuccessMessage } from "@/src/lib/api-messages";
 import { cn } from "@/src/lib/utils";
+
+function clearAuthCookies(): void {
+  Cookies.remove("teacherId", { path: "/" });
+  Cookies.remove("accessToken", { path: "/" });
+  Cookies.remove("refreshToken", { path: "/" });
+  Cookies.remove("fullName", { path: "/" });
+}
 
 export default function Sidebar() {
   const tCommon = useTranslations("Common");
@@ -22,13 +32,17 @@ export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const handleLogout = () => {
-    Cookies.remove("teacherId", { path: "/" });
-    Cookies.remove("accessToken", { path: "/" });
-    Cookies.remove("refreshToken", { path: "/" });
-    Cookies.remove("fullName", { path: "/" });
-
-    router.push("/login");
+  const handleLogout = async () => {
+    try {
+      const res = await api.post<{ messageKey?: string }>("/auth/logout");
+      const text = getSuccessMessage(res.data?.messageKey);
+      if (text) toast.success(text);
+    } catch {
+      // Vẫn xóa cookie và redirect khi lỗi (401, mạng, v.v.)
+    } finally {
+      clearAuthCookies();
+      router.push("/login");
+    }
   };
 
   return (
