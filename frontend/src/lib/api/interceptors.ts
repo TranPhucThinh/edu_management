@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
 
+import { getRefreshTokenCookieExpiry } from "@/src/lib/auth-cookies";
 import {
   getApiMessage,
   getErrorMessage,
@@ -39,7 +40,10 @@ async function refreshAccessToken(): Promise<string> {
     path: "/",
   });
   if (newRefreshToken) {
-    Cookies.set("refreshToken", newRefreshToken, { expires: 7, path: "/" });
+    Cookies.set("refreshToken", newRefreshToken, {
+      expires: getRefreshTokenCookieExpiry(newRefreshToken),
+      path: "/",
+    });
   }
 
   return newAccessToken;

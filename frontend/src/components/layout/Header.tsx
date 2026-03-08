@@ -35,12 +35,12 @@ export default function Header() {
   );
 
   return (
-    <header className="flex items-center justify-between px-4 py-4 md:px-8 bg-white border-b">
+    <header className="flex items-center justify-between px-4 py-4 md:px-8 bg-background border-b border-border">
       <div className="flex flex-col">
-        <h1 className="text-2xl font-bold text-slate-900 leading-tight">
+        <h1 className="text-2xl font-bold text-foreground leading-tight">
           {t(activeItem.label)}
         </h1>
-        <p className="text-sm text-slate-500 font-medium capitalize">
+        <p className="text-sm text-muted-foreground font-medium capitalize">
           {currentDate}
         </p>
       </div>
@@ -49,18 +49,18 @@ export default function Header() {
         <Button
           variant="ghost"
           size="icon"
-          className="relative text-slate-600 hover:bg-slate-100 rounded-full"
+          className="relative text-muted-foreground hover:bg-accent rounded-full"
         >
           <Bell className="h-6 w-6" />
-          <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 border-2 border-white rounded-full"></span>
+          <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-destructive border-2 border-background rounded-full"></span>
         </Button>
 
-        <Avatar className="h-10 w-10 border-2 border-white shadow-sm ring-1 ring-slate-200">
+        <Avatar className="h-10 w-10 border-2 border-background shadow-sm ring-1 ring-border">
           <AvatarImage
             src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
             alt="User"
           />
-          <AvatarFallback className="bg-slate-200 text-slate-500 font-bold">
+          <AvatarFallback className="bg-muted text-muted-foreground font-bold">
             JD
           </AvatarFallback>
         </Avatar>

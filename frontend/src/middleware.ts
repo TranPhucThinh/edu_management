@@ -15,14 +15,16 @@ export default function middleware(req: NextRequest) {
     : routing.defaultLocale;
 
   const isLoginPage = pathname.includes("/login");
+  const isRegisterPage = pathname.includes("/register");
+  const isAuthPage = isLoginPage || isRegisterPage;
 
-  if (!accessToken && !isLoginPage) {
+  if (!accessToken && !isAuthPage) {
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/login`;
     return NextResponse.redirect(url);
   }
 
-  if (accessToken && isLoginPage) {
+  if (accessToken && (isLoginPage || isRegisterPage)) {
     const url = req.nextUrl.clone();
     url.pathname = `/${locale}/dashboard`;
     return NextResponse.redirect(url);

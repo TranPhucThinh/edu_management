@@ -11,7 +11,7 @@ export default function MobileNav() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 border-t bg-white md:hidden z-50 pb-[env(safe-area-inset-bottom)]">
+    <div className="fixed bottom-0 left-0 right-0 border-t border-border bg-background md:hidden z-50 pb-[env(safe-area-inset-bottom)]">
       <div className="flex items-center justify-around h-16">
         {items.map((item) => {
           const Icon = item.icon;
@@ -30,7 +30,7 @@ export default function MobileNav() {
               )}
             >
               <Icon className="h-6 w-6" />
-              <span className="text-[10px] font-medium">{t(item.label)}</span>
+              <span className="text-xs font-medium">{t(item.label)}</span>
             </Link>
           );
         })}

@@ -24,7 +24,9 @@
     "VALIDATION__INVALID_EMAIL": "Email không đúng định dạng.",
     "VALIDATION__PASSWORD_TOO_SHORT": "Mật khẩu quá ngắn (tối thiểu 3 ký tự).",
     "VALIDATION__REQUIRED": "Trường này không được để trống.",
-    "VALIDATION__INVALID_INPUT": "Dữ liệu nhập không hợp lệ."
+    "VALIDATION__INVALID_INPUT": "Dữ liệu nhập không hợp lệ.",
+    "VALIDATION__FULLNAME_TOO_SHORT": "Tên quá ngắn (tối thiểu 2 ký tự).",
+    "AUTH__EMAIL_ALREADY_EXISTS": "Email đã tồn tại."
   },
   "Common": {
     "appName": "Edu Manager",
@@ -40,12 +42,42 @@
     "forgotPassword": "Quên mật khẩu?",
     "submit": "Đăng nhập ngay",
     "needHelp": "Bạn gặp sự cố? Liên hệ",
+    "noAccount": "Chưa có tài khoản?",
+    "signUp": "Đăng ký",
     "validation": {
       "emailRequired": "Vui lòng nhập email.",
       "emailInvalid": "Email không đúng định dạng.",
+      "passwordRequired": "Mật khẩu là bắt buộc.",
       "passwordMin": "Mật khẩu phải có ít nhất 6 ký tự."
     },
     "invalidCredentials": "Email hoặc mật khẩu không đúng."
+  },
+  "Register": {
+    "title": "Tạo tài khoản",
+    "description": "Nhập thông tin của bạn để bắt đầu sử dụng hệ thống quản lý.",
+    "email": "Email",
+    "emailPlaceholder": "example@domain.com",
+    "fullName": "Họ và tên",
+    "fullNamePlaceholder": "Nguyễn Văn A",
+    "password": "Mật khẩu",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "confirmPasswordPlaceholder": "••••••••",
+    "submit": "Tạo tài khoản",
+    "hasAccount": "Đã có tài khoản?",
+    "signIn": "Đăng nhập",
+    "defaultError": "Đăng ký thất bại. Vui lòng thử lại.",
+    "validation": {
+      "emailRequired": "Vui lòng nhập email.",
+      "emailInvalid": "Email không đúng định dạng.",
+      "passwordRequired": "Mật khẩu là bắt buộc.",
+      "passwordMin": "Mật khẩu phải có ít nhất 6 ký tự.",
+      "confirmPasswordMin": "Mật khẩu xác nhận phải có ít nhất 6 ký tự.",
+      "confirmPasswordRequired": "Mật khẩu xác nhận là bắt buộc.",
+      "confirmPasswordMatch": "Mật khẩu xác nhận không khớp.",
+      "fullNameRequired": "Tên là bắt buộc.",
+      "fullNameTooShort": "Tên phải có ít nhất 2 ký tự."
+    }
   },
   "Metadata": {
     "title": "Teacher App",

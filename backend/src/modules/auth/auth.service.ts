@@ -2,6 +2,7 @@ import {
   Injectable,
   BadRequestException,
   ForbiddenException,
+  ConflictException,
 } from '@nestjs/common';
 import { ErrorCodes } from 'src/common/error-codes';
 import { JwtService } from '@nestjs/jwt';
@@ -10,6 +11,7 @@ import { JWT_SECRET } from 'src/common/jwt-constants';
 
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
 
 @Injectable()
 export class AuthService {
@@ -58,6 +60,40 @@ export class AuthService {
     });
 
     return { accessToken, refreshToken };
+  }
+
+  async register(dto: RegisterDto) {
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email: dto.email }
+    })
+
+    if (existingUser) {
+      throw new ConflictException(ErrorCodes.AUTH.EMAIL_ALREADY_EXISTS)
+    }
+
+    const hashPassword = await bcrypt.hash(dto.password, 10)
+
+    const user = await this.prisma.user.create({
+      data: {
+        email: dto.email,
+        fullName: dto.fullName,
+        password: hashPassword
+      },
+      select: {
+        id: true,
+        email: true,
+        fullName: true,
+        createAt: true
+      }
+    })
+
+    const token = await this.generateAndSaveTokens(user.id, user.email)
+
+    return {
+      ...token,
+      teacherId: user.id,
+      fullName: user.fullName
+    }
   }
 
   async login(dto: LoginDto) {

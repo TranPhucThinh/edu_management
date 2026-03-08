@@ -1,62 +1,58 @@
-"use client";
+'use client'
 
-import { GraduationCap, LogOut, Settings } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { usePathname } from "next/navigation";
-import Cookies from "js-cookie";
-import { toast } from "sonner";
+import Cookies from 'js-cookie'
+import { GraduationCap, LogOut, Settings } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { usePathname } from 'next/navigation'
+import { toast } from 'sonner'
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/src/components/ui/avatar";
-import { Button } from "@/src/components/ui/button";
-import { items } from "@/src/constants/Nav";
-import { Link, useRouter } from "@/src/i18n/navigation";
-import { api } from "@/src/lib/api";
-import { getSuccessMessage } from "@/src/lib/api-messages";
-import { cn } from "@/src/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from '@/src/components/ui/avatar'
+import { Button } from '@/src/components/ui/button'
+import { items } from '@/src/constants/Nav'
+import { Link, useRouter } from '@/src/i18n/navigation'
+import { api } from '@/src/lib/api'
+import { getSuccessMessage } from '@/src/lib/api-messages'
+import { cn } from '@/src/lib/utils'
 
 function clearAuthCookies(): void {
-  Cookies.remove("teacherId", { path: "/" });
-  Cookies.remove("accessToken", { path: "/" });
-  Cookies.remove("refreshToken", { path: "/" });
-  Cookies.remove("fullName", { path: "/" });
+  Cookies.remove('teacherId', { path: '/' })
+  Cookies.remove('accessToken', { path: '/' })
+  Cookies.remove('refreshToken', { path: '/' })
+  Cookies.remove('fullName', { path: '/' })
 }
 
 export default function Sidebar() {
-  const tCommon = useTranslations("Common");
-  const tNav = useTranslations("Nav");
+  const tCommon = useTranslations('Common')
+  const tNav = useTranslations('Nav')
 
-  const pathname = usePathname();
-  const router = useRouter();
+  const pathname = usePathname()
+  const router = useRouter()
 
   const handleLogout = async () => {
     try {
-      const res = await api.post<{ messageKey?: string }>("/auth/logout");
-      const text = getSuccessMessage(res.data?.messageKey);
-      if (text) toast.success(text);
+      const res = await api.post<{ messageKey?: string }>('/auth/logout')
+      const text = getSuccessMessage(res.data?.messageKey)
+      if (text) toast.success(text)
     } catch {
       // Vẫn xóa cookie và redirect khi lỗi (401, mạng, v.v.)
     } finally {
-      clearAuthCookies();
-      router.push("/login");
+      clearAuthCookies()
+      router.push('/login')
     }
-  };
+  }
 
   return (
-    <aside className="hidden md:flex flex-col h-screen w-64 border-r bg-white fixed left-0 top-0">
+    <aside className="hidden md:flex flex-col h-screen w-64 border-r border-sidebar-border bg-sidebar fixed left-0 top-0">
       {/* 1. HEADER */}
       <div className="p-6 flex items-center gap-3">
-        <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-indigo-600 shadow-lg shadow-indigo-100">
-          <GraduationCap className="h-6 w-6 text-white" />
+        <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-sidebar-primary shadow-lg shadow-sidebar-primary/20">
+          <GraduationCap className="h-6 w-6 text-sidebar-primary-foreground" />
         </div>
         <div className="flex flex-col">
-          <h1 className="text-[17px] font-bold text-slate-900 leading-none">
-            {tCommon("appName")}
+          <h1 className="text-base font-bold text-sidebar-foreground leading-none">
+            {tCommon('appName')}
           </h1>
-          <span className="text-[11px] font-medium text-slate-400 mt-1">
+          <span className="text-xs font-medium text-muted-foreground mt-1">
             SaaS Platform
           </span>
         </div>
@@ -65,64 +61,64 @@ export default function Sidebar() {
       {/* 2. NAVIGATION */}
       <nav className="flex-1 px-4 space-y-1">
         {items.map((item) => {
-          const Icon = item.icon;
-          const isActive = pathname.includes(item.href);
+          const Icon = item.icon
+          const isActive = pathname.includes(item.href)
 
           return (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 group",
+                'flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 group',
                 isActive
-                  ? "bg-indigo-50 text-primary"
-                  : "text-slate-500 hover:bg-slate-50 hover:text-slate-900",
+                  ? 'bg-sidebar-primary text-sidebar-primary-foreground'
+                  : 'text-muted-foreground hover:bg-secondary hover:text-sidebar-accent-foreground',
               )}
             >
               <Icon className="h-5 w-5" />
               <span className="font-medium text-sm">{tNav(item.label)}</span>
             </Link>
-          );
+          )
         })}
       </nav>
 
       {/* 3. FOOTER */}
-      <div className="p-4 space-y-1 border-t border-slate-50">
+      <div className="p-4 space-y-1 border-t border-sidebar-border">
         <Link
           href="/settings"
-          className="flex items-center gap-3 p-3 rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-all group"
+          className="flex items-center gap-3 p-3 rounded-2xl text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all group"
         >
-          <Settings className="h-5 w-5 text-slate-400 group-hover:text-slate-900" />
-          <span className="font-medium text-[14px]">Settings</span>
+          <Settings className="h-5 w-5 text-muted-foreground group-hover:text-sidebar-accent-foreground" />
+          <span className="font-medium text-sm">Settings</span>
         </Link>
 
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 p-3 h-auto rounded-2xl text-slate-500 hover:bg-slate-50 hover:text-slate-900 hover:cursor-pointer font-medium transition-all group"
+          className="w-full justify-start gap-3 p-3 h-auto rounded-2xl text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:cursor-pointer font-medium transition-all group"
           onClick={handleLogout}
         >
-          <LogOut className="h-5 w-5 text-slate-400 group-hover:text-slate-900" />
-          <span className="text-[14px]">Logout</span>
+          <LogOut className="h-5 w-5 text-muted-foreground group-hover:text-sidebar-accent-foreground" />
+          <span className="text-sm">Logout</span>
         </Button>
 
         {/* PROFILE CARD */}
-        <div className="mt-4 p-2 bg-slate-50/50 border border-slate-100 rounded-[28px] flex items-center gap-3 hover:bg-slate-50 transition-colors cursor-pointer group">
-          <Avatar className="h-10 w-10 border-2 border-white shadow-sm ring-1 ring-slate-200">
+        <div className="mt-4 p-2 bg-sidebar-accent/50 border border-sidebar-border rounded-3xl flex items-center gap-3 hover:bg-sidebar-accent transition-colors cursor-pointer group">
+          <Avatar className="h-10 w-10 border-2 border-sidebar shadow-sm ring-1 ring-sidebar-border">
             <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" />
-            <AvatarFallback className="bg-slate-200 text-slate-500 font-bold">
+            <AvatarFallback className="bg-muted text-muted-foreground font-bold">
               AJ
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col min-w-0">
-            <span className="text-[13px] font-black text-slate-900 truncate">
+            <span className="text-sm font-black text-sidebar-foreground truncate">
               Alex Johnson
             </span>
-            <span className="text-[11px] font-medium text-slate-400 truncate">
+            <span className="text-xs font-medium text-muted-foreground truncate">
               Administrator
             </span>
           </div>
         </div>
       </div>
     </aside>
-  );
+  )
 }

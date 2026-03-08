@@ -24,7 +24,9 @@
     "VALIDATION__INVALID_EMAIL": "Invalid email format.",
     "VALIDATION__PASSWORD_TOO_SHORT": "Password is too short (minimum 3 characters).",
     "VALIDATION__REQUIRED": "This field is required.",
-    "VALIDATION__INVALID_INPUT": "Invalid input."
+    "VALIDATION__INVALID_INPUT": "Invalid input.",
+    "VALIDATION__FULLNAME_TOO_SHORT": "Fullname is too short (minimum 2 characters).",
+    "AUTH__EMAIL_ALREADY_EXISTS": "Email already exists."
   },
   "Common": {
     "appName": "Edu Manager",
@@ -40,12 +42,42 @@
     "forgotPassword": "Forgot password?",
     "submit": "Sign in",
     "needHelp": "Having trouble? Contact",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
     "validation": {
       "emailRequired": "Please enter your email.",
       "emailInvalid": "Invalid email format.",
+      "passwordRequired": "Password is required.",
       "passwordMin": "Password must be at least 6 characters."
     },
     "invalidCredentials": "Email or password is incorrect."
+  },
+  "Register": {
+    "title": "Create an account",
+    "description": "Enter your details to get started with the management system.",
+    "email": "Email",
+    "emailPlaceholder": "example@domain.com",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "John Doe",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "••••••••",
+    "submit": "Create account",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "defaultError": "Registration failed. Please try again.",
+    "validation": {
+      "emailRequired": "Please enter your email.",
+      "emailInvalid": "Invalid email format.",
+      "passwordRequired": "Password is required.",
+      "passwordMin": "Password must be at least 6 characters.",
+      "confirmPasswordMin": "Confirm password must be at least 6 characters.",
+      "confirmPasswordRequired": "Confirm password is required.",
+      "confirmPasswordMatch": "Confirm password does not match.",
+      "fullNameRequired": "Full name is required.",
+      "fullNameTooShort": "Full name must be at least 2 characters."
+    }
   },
   "Metadata": {
     "title": "Teacher App",

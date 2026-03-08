@@ -8,9 +8,9 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-muted">
       {/* 1. DESKTOP SIDEBAR */}
-      <div className="hidden md:block fixed inset-y-0 left-0 z-50 w-64 border-r bg-white">
+      <div className="hidden md:block fixed inset-y-0 left-0 z-50 w-64 border-r border-sidebar-border bg-sidebar">
         <Sidebar />
       </div>
 

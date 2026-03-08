@@ -1,6 +1,14 @@
 'use client'
 
-import { BookOpen, Eye, EyeOff, Loader2, Lock, User } from 'lucide-react'
+import {
+  BookOpen,
+  Eye,
+  EyeOff,
+  Loader2,
+  Lock,
+  Mail,
+  User,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Button } from '@/src/components/ui/button'
@@ -15,25 +23,27 @@ import {
 } from '@/src/components/ui/form'
 import { Input } from '@/src/components/ui/input'
 import { useRouter } from '@/src/i18n/navigation'
-import { useLoginForm } from '@/src/hooks'
-import { createLoginSchema } from '@/src/lib/schemas/auth'
+import { useRegisterForm } from '@/src/hooks'
+import { createRegisterSchema } from '@/src/lib/schemas/auth'
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const tCommon = useTranslations('Common')
-  const tLogin = useTranslations('Login')
-  const tValidation = useTranslations('Login.validation')
+  const tRegister = useTranslations('Register')
+  const tValidation = useTranslations('Register.validation')
   const router = useRouter()
 
-  const loginSchema = createLoginSchema(tValidation)
+  const registerSchema = createRegisterSchema(tValidation)
   const {
     form,
     isLoading,
     showPassword,
+    showConfirmPassword,
     setShowPassword,
+    setShowConfirmPassword,
     onSubmit,
-  } = useLoginForm({
-    schema: loginSchema,
-    invalidCredentialsMessage: tLogin('invalidCredentials'),
+  } = useRegisterForm({
+    schema: registerSchema,
+    defaultErrorMessage: tRegister('defaultError'),
   })
 
   const { control, formState } = form
@@ -51,14 +61,20 @@ export default function LoginPage() {
       </div>
 
       <ContentCard
-        title={tLogin('title')}
-        description={tLogin('description')}
+        title={tRegister('title')}
+        description={tRegister('description')}
         footer={
           <p className="text-xs text-muted-foreground text-center">
-            {tLogin('needHelp')}{' '}
-            <span className="font-medium text-primary cursor-pointer hover:underline">
-              {tCommon('support')}
-            </span>
+            {tRegister('hasAccount')}{' '}
+            <Button
+              type="button"
+              variant="link"
+              className="p-0 h-auto text-primary font-medium hover:underline"
+              onClick={() => router.push('/login')}
+              disabled={isLoading}
+            >
+              {tRegister('signIn')}
+            </Button>
           </p>
         }
       >
@@ -69,17 +85,41 @@ export default function LoginPage() {
                 {rootError}
               </p>
             )}
+
+            <FormField
+              control={control}
+              name="fullName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{tRegister('fullName')}</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder={tRegister('fullNamePlaceholder')}
+                        className="pl-9 h-11 bg-muted border-input focus:bg-background transition-all"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{tLogin('email')}</FormLabel>
+                  <FormLabel>{tRegister('email')}</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
-                        placeholder={tLogin('emailPlaceholder')}
+                        type="email"
+                        placeholder={tRegister('emailPlaceholder')}
                         className="pl-9 h-11 bg-muted border-input focus:bg-background transition-all"
                         {...field}
                         disabled={isLoading}
@@ -96,21 +136,13 @@ export default function LoginPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center justify-between">
-                    <FormLabel>{tLogin('password')}</FormLabel>
-                    <a
-                      href="#"
-                      className="text-xs font-medium text-primary hover:underline"
-                    >
-                      {tLogin('forgotPassword')}
-                    </a>
-                  </div>
+                  <FormLabel>{tRegister('password')}</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                       <Input
                         type={showPassword ? 'text' : 'password'}
-                        placeholder="••••••••"
+                        placeholder={tRegister('passwordPlaceholder')}
                         className="pl-9 pr-9 h-11 bg-muted border-input focus:bg-background transition-all"
                         {...field}
                         disabled={isLoading}
@@ -134,6 +166,43 @@ export default function LoginPage() {
               )}
             />
 
+            <FormField
+              control={control}
+              name="confirmPassword"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{tRegister('confirmPassword')}</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        placeholder={tRegister('confirmPasswordPlaceholder')}
+                        className="pl-9 pr-9 h-11 bg-muted border-input focus:bg-background transition-all"
+                        {...field}
+                        disabled={isLoading}
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                        className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                        tabIndex={-1}
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4" />
+                        ) : (
+                          <Eye className="h-4 w-4" />
+                        )}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button
               type="submit"
               className="w-full h-11 text-base font-medium shadow-button transition-all hover:-translate-y-px"
@@ -145,24 +214,9 @@ export default function LoginPage() {
                   {tCommon('loading')}
                 </>
               ) : (
-                tLogin('submit')
+                tRegister('submit')
               )}
             </Button>
-
-            <div className="text-center">
-              <span className="text-sm text-muted-foreground">
-                {tLogin('noAccount')}{' '}
-              </span>
-              <Button
-                type="button"
-                variant="link"
-                className="p-0 h-auto text-primary font-medium hover:underline"
-                onClick={() => router.push('/register')}
-                disabled={isLoading}
-              >
-                {tLogin('signUp')}
-              </Button>
-            </div>
           </form>
         </Form>
       </ContentCard>
