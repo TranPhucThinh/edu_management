@@ -13,15 +13,8 @@ import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { ContentCard } from '@/components/common/ContentCard'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { FormInputField } from '@/components/form'
+import { Form } from '@/components/ui/form'
 import { useRouter } from '@/i18n/navigation'
 import { useRegisterForm } from '@/hooks'
 import { createRegisterSchema } from '@/lib/schemas/auth'
@@ -86,121 +79,69 @@ export default function RegisterPage() {
               </p>
             )}
 
-            <FormField
+            <FormInputField
               control={control}
               name="fullName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{tRegister('fullName')}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder={tRegister('fullNamePlaceholder')}
-                        className="pl-9 h-11 bg-muted border-input focus:bg-background transition-all"
-                        {...field}
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label={tRegister('fullName')}
+              placeholder={tRegister('fullNamePlaceholder')}
+              leftIcon={<User className="h-4 w-4" />}
+              disabled={isLoading}
             />
 
-            <FormField
+            <FormInputField
               control={control}
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{tRegister('email')}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type="email"
-                        placeholder={tRegister('emailPlaceholder')}
-                        className="pl-9 h-11 bg-muted border-input focus:bg-background transition-all"
-                        {...field}
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label={tRegister('email')}
+              type="email"
+              placeholder={tRegister('emailPlaceholder')}
+              leftIcon={<Mail className="h-4 w-4" />}
+              disabled={isLoading}
             />
 
-            <FormField
+            <FormInputField
               control={control}
               name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{tRegister('password')}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder={tRegister('passwordPlaceholder')}
-                        className="pl-9 pr-9 h-11 bg-muted border-input focus:bg-background transition-all"
-                        {...field}
-                        disabled={isLoading}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
-                        tabIndex={-1}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label={tRegister('password')}
+              type={showPassword ? 'text' : 'password'}
+              placeholder={tRegister('passwordPlaceholder')}
+              leftIcon={<Lock className="h-4 w-4" />}
+              rightSlot={
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              }
+              disabled={isLoading}
             />
 
-            <FormField
+            <FormInputField
               control={control}
               name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{tRegister('confirmPassword')}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type={showConfirmPassword ? 'text' : 'password'}
-                        placeholder={tRegister('confirmPasswordPlaceholder')}
-                        className="pl-9 pr-9 h-11 bg-muted border-input focus:bg-background transition-all"
-                        {...field}
-                        disabled={isLoading}
-                      />
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setShowConfirmPassword(!showConfirmPassword)
-                        }
-                        className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
-                        tabIndex={-1}
-                      >
-                        {showConfirmPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label={tRegister('confirmPassword')}
+              type={showConfirmPassword ? 'text' : 'password'}
+              placeholder={tRegister('confirmPasswordPlaceholder')}
+              leftIcon={<Lock className="h-4 w-4" />}
+              rightSlot={
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  tabIndex={-1}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              }
+              disabled={isLoading}
             />
 
             <Button

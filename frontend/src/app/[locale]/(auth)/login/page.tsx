@@ -5,15 +5,8 @@ import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
 import { ContentCard } from '@/components/common/ContentCard'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { FormInputField } from '@/components/form'
+import { Form } from '@/components/ui/form'
 import { useRouter } from '@/i18n/navigation'
 import { useLoginForm } from '@/hooks'
 import { createLoginSchema } from '@/lib/schemas/auth'
@@ -69,69 +62,44 @@ export default function LoginPage() {
                 {rootError}
               </p>
             )}
-            <FormField
+            <FormInputField
               control={control}
               name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{tLogin('email')}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder={tLogin('emailPlaceholder')}
-                        className="pl-9 h-11 bg-muted border-input focus:bg-background transition-all"
-                        {...field}
-                        disabled={isLoading}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label={tLogin('email')}
+              placeholder={tLogin('emailPlaceholder')}
+              leftIcon={<User className="h-4 w-4" />}
+              disabled={isLoading}
             />
 
-            <FormField
+            <FormInputField
               control={control}
               name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center justify-between">
-                    <FormLabel>{tLogin('password')}</FormLabel>
-                    <a
-                      href="#"
-                      className="text-xs font-medium text-primary hover:underline"
-                    >
-                      {tLogin('forgotPassword')}
-                    </a>
-                  </div>
-                  <FormControl>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="••••••••"
-                        className="pl-9 pr-9 h-11 bg-muted border-input focus:bg-background transition-all"
-                        {...field}
-                        disabled={isLoading}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
-                        tabIndex={-1}
-                      >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4" />
-                        ) : (
-                          <Eye className="h-4 w-4" />
-                        )}
-                      </button>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              label={tLogin('password')}
+              labelExtra={
+                <a
+                  href="#"
+                  className="text-xs font-medium text-primary hover:underline"
+                >
+                  {tLogin('forgotPassword')}
+                </a>
+              }
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••"
+              leftIcon={<Lock className="h-4 w-4" />}
+              rightSlot={
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  tabIndex={-1}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
+              }
+              disabled={isLoading}
             />
 
             <Button
