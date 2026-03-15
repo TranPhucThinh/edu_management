@@ -12,8 +12,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale,
     messages: (
       await (locale === "en"
-        ? import("@/src/messages/en.json")
-        : import("@/src/messages/vi.json"))
+        ? import("@/messages/en.json")
+        : import("@/messages/vi.json"))
     ).default,
   };
 });

@@ -44,6 +44,12 @@ model Course {
   id   String @id @default(uuid())
   name String
 
+  // Grade / Category metadata (ví dụ: \"Khối 12\", \"IELTS\", năm học, mô tả)
+  gradeLabel    String?
+  level         String?
+  academicYear  String?
+  description   String?
+
   tuitionType TuitionType @default(MONTHLY_FIXED)
   defaultFee  Decimal     @default(0) @db.Decimal(10, 2)
 

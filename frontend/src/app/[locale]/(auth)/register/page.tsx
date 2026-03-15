@@ -11,8 +11,8 @@ import {
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/src/components/ui/button'
-import { ContentCard } from '@/src/components/ContentCard'
+import { Button } from '@/components/ui/button'
+import { ContentCard } from '@/components/common/ContentCard'
 import {
   Form,
   FormControl,
@@ -20,11 +20,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/src/components/ui/form'
-import { Input } from '@/src/components/ui/input'
-import { useRouter } from '@/src/i18n/navigation'
-import { useRegisterForm } from '@/src/hooks'
-import { createRegisterSchema } from '@/src/lib/schemas/auth'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useRouter } from '@/i18n/navigation'
+import { useRegisterForm } from '@/hooks'
+import { createRegisterSchema } from '@/lib/schemas/auth'
 
 export default function RegisterPage() {
   const tCommon = useTranslations('Common')

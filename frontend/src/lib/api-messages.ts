@@ -1,6 +1,6 @@
-import en from "@/src/messages/en.json";
-import vi from "@/src/messages/vi.json";
-import { routing } from "@/src/i18n/routing";
+import en from "@/messages/en.json";
+import vi from "@/messages/vi.json";
+import { routing } from "@/i18n/routing";
 
 type ApiKey =
   | "networkError"

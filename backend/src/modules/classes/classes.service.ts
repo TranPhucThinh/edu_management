@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -13,6 +14,32 @@ export class ClassesService {
   constructor(private prisma: PrismaService) {}
 
   async create(dto: CreateClassDto, teacherId: string) {
+    const course = await this.prisma.course.findFirst({
+      where: {
+        id: dto.courseId,
+        teacherId,
+      },
+    });
+
+    if (!course) {
+      throw new ForbiddenException(
+        ErrorCodes.CLASS.COURSE_NOT_FOUND_OR_FORBIDDEN,
+      );
+    }
+
+    const existingClass = await this.prisma.class.findFirst({
+      where: {
+        teacherId,
+        courseId: dto.courseId,
+        name: dto.name,
+        isActive: true,
+      },
+    });
+
+    if (existingClass) {
+      throw new ConflictException(ErrorCodes.CLASS.DUPLICATE_NAME);
+    }
+
     return this.prisma.class.create({
       data: {
         name: dto.name,

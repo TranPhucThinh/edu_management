@@ -9,7 +9,8 @@
     "unknownError": "Unknown error: {message}"
   },
   "Success": {
-    "AUTH__LOGOUT_SUCCESS": "You have been signed out."
+    "AUTH__LOGOUT_SUCCESS": "You have been signed out.",
+    "AUTH__LOGIN_SUCCESS": "You have been signed in."
   },
   "Errors": {
     "AUTH__INVALID_CREDENTIALS": "Incorrect email or password.",
@@ -21,6 +22,8 @@
     "INVOICE__STUDENT_NOT_ENROLLED": "Student is not enrolled in this class.",
     "PAYMENT__INVOICE_NOT_FOUND": "Invoice not found.",
     "PAYMENT__INVOICE_ALREADY_PAID": "This invoice has already been fully paid.",
+    "COURSE__DUPLICATE_NAME": "A course with this name already exists.",
+    "CLASS__DUPLICATE_NAME": "A class with this name already exists in this course.",
     "VALIDATION__INVALID_EMAIL": "Invalid email format.",
     "VALIDATION__PASSWORD_TOO_SHORT": "Password is too short (minimum 3 characters).",
     "VALIDATION__REQUIRED": "This field is required.",
@@ -31,7 +34,9 @@
   "Common": {
     "appName": "Edu Manager",
     "loading": "Processing...",
-    "support": "Technical Support"
+    "support": "Technical Support",
+    "settings": "Settings",
+    "logout": "Logout"
   },
   "Login": {
     "title": "Welcome back!",
@@ -88,5 +93,25 @@
     "classes": "Classes",
     "students": "Students",
     "finance": "Finance"
+  },
+  "Classes": {
+    "title": "Classes",
+    "allClasses": "All Classes",
+    "active": "Active",
+    "archived": "Archived",
+    "upcoming": "Upcoming",
+    "student": "Student",
+    "students": "Students",
+    "viewDetails": "View Details",
+    "statusActive": "ACTIVE",
+    "statusArchived": "ARCHIVED",
+    "statusUpcoming": "UPCOMING",
+    "searchPlaceholder": "Search school records...",
+    "createNewClass": "Create New Class",
+    "addNewClass": "Add New Class",
+    "addNewClassDescription": "Set up a new course session and student list."
+  },
+  "Messages": {
+    "noClassesFound": "No classes found for this filter."
   }
 }

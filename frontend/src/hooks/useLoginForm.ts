@@ -7,11 +7,12 @@ import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { getRefreshTokenCookieExpiry } from '@/src/lib/auth-cookies'
-import { useRouter } from '@/src/i18n/navigation'
-import { api } from '@/src/lib/api'
-import { getErrorMessage } from '@/src/lib/api-messages'
-import type { LoginFormValues } from '@/src/lib/schemas/auth'
+import { getRefreshTokenCookieExpiry } from '@/lib/auth-cookies'
+import { useRouter } from '@/i18n/navigation'
+import { api } from '@/lib/api'
+import { getErrorMessage, getSuccessMessage } from '@/lib/api-messages'
+import type { LoginFormValues } from '@/lib/schemas/auth'
+import { toast } from 'sonner'
 
 export type UseLoginFormOptions = {
   /** Zod schema from createLoginSchema(tValidation) */
@@ -58,7 +59,7 @@ export function useLoginForm({
         password: data.password,
       })
 
-      const { accessToken, refreshToken, fullName } = response.data
+      const { accessToken, refreshToken, fullName, teacherId } = response.data
 
       const decoded = jwtDecode<{ exp: number }>(accessToken)
       const expiresDate = new Date(decoded.exp * 1000)
@@ -78,7 +79,14 @@ export function useLoginForm({
         expires: refreshExpiry,
         path: '/',
       })
+      if (teacherId) {
+        Cookies.set('teacherId', teacherId, {
+          expires: refreshExpiry,
+          path: '/',
+        })
+      }
 
+      toast.success(getSuccessMessage('AUTH__LOGIN_SUCCESS'))
       router.push(redirectTo)
     } catch (error) {
       const axiosError = error as AxiosError<{

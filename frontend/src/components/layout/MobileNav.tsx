@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl";
 
-import { items } from "@/src/constants/Nav";
-import { Link, usePathname } from "@/src/i18n/navigation";
-import { cn } from "@/src/lib/utils";
+import { items } from "@/constants/Nav";
+import { Link, usePathname } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 export default function MobileNav() {
   const t = useTranslations("Nav");

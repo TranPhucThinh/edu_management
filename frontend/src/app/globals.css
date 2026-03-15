@@ -38,6 +38,12 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-status-active: var(--status-active);
+  --color-status-active-foreground: var(--status-active-foreground);
+  --color-status-upcoming: var(--status-upcoming);
+  --color-status-upcoming-foreground: var(--status-upcoming-foreground);
+  --color-status-archived: var(--status-archived);
+  --color-status-archived-foreground: var(--status-archived-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -75,6 +81,16 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+  /* Status colors for classes and similar entities */
+  /* Active: green tone */
+  --status-active: #059669;
+  --status-active-foreground: #ecfdf5;
+  /* Upcoming: soft blue */
+  --status-upcoming: #0ea5e9;
+  --status-upcoming-foreground: #e0f2fe;
+  /* Archived: neutral gray */
+  --status-archived: #e5e7eb;
+  --status-archived-foreground: #374151;
   --sidebar: oklch(0.984 0.003 247.858);
   --sidebar-foreground: oklch(0.129 0.042 264.695);
   --sidebar-primary: var(--primary);
@@ -112,6 +128,13 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
+  /* Status colors in dark mode */
+  --status-active: #22c55e;
+  --status-active-foreground: #022c22;
+  --status-upcoming: #38bdf8;
+  --status-upcoming-foreground: #082f49;
+  --status-archived: #4b5563;
+  --status-archived-foreground: #e5e7eb;
   --sidebar: oklch(0.208 0.042 265.755);
   --sidebar-foreground: oklch(0.984 0.003 247.858);
   --sidebar-primary: oklch(0.488 0.243 264.376);

@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { cn } from "@/src/lib/utils";
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface ContentCardProps {
   title: React.ReactNode;

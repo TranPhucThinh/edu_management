@@ -9,7 +9,8 @@
     "unknownError": "Lỗi không xác định: {message}"
   },
   "Success": {
-    "AUTH__LOGOUT_SUCCESS": "Đăng xuất thành công."
+    "AUTH__LOGOUT_SUCCESS": "Đăng xuất thành công.",
+    "AUTH__LOGIN_SUCCESS": "Đăng nhập thành công."
   },
   "Errors": {
     "AUTH__INVALID_CREDENTIALS": "Email hoặc mật khẩu không đúng.",
@@ -21,6 +22,8 @@
     "INVOICE__STUDENT_NOT_ENROLLED": "Học sinh chưa ghi danh vào lớp này.",
     "PAYMENT__INVOICE_NOT_FOUND": "Hóa đơn không tồn tại.",
     "PAYMENT__INVOICE_ALREADY_PAID": "Hóa đơn này đã thanh toán đủ rồi!",
+    "COURSE__DUPLICATE_NAME": "Đã tồn tại khóa học (khối) với tên này.",
+    "CLASS__DUPLICATE_NAME": "Đã tồn tại lớp với tên này trong khóa học.",
     "VALIDATION__INVALID_EMAIL": "Email không đúng định dạng.",
     "VALIDATION__PASSWORD_TOO_SHORT": "Mật khẩu quá ngắn (tối thiểu 3 ký tự).",
     "VALIDATION__REQUIRED": "Trường này không được để trống.",
@@ -31,7 +34,9 @@
   "Common": {
     "appName": "Edu Manager",
     "loading": "Đang xử lý...",
-    "support": "Hỗ trợ kỹ thuật"
+    "support": "Hỗ trợ kỹ thuật",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
   },
   "Login": {
     "title": "Chào mừng trở lại!",
@@ -88,5 +93,25 @@
     "classes": "Lớp học",
     "students": "Học sinh",
     "finance": "Tài chính"
+  },
+  "Classes": {
+    "title": "Lớp học",
+    "allClasses": "Tất cả lớp",
+    "active": "Đang học",
+    "archived": "Đã lưu trữ",
+    "upcoming": "Sắp tới",
+    "student": "Học sinh",
+    "students": "Học sinh",
+    "viewDetails": "Xem chi tiết",
+    "statusActive": "ĐANG HỌC",
+    "statusArchived": "ĐÃ LƯU TRỮ",
+    "statusUpcoming": "SẮP TỚI",
+    "searchPlaceholder": "Tìm kiếm hồ sơ trường học...",
+    "createNewClass": "Tạo lớp học mới",
+    "addNewClass": "Thêm lớp học mới",
+    "addNewClassDescription": "Thiết lập danh sách học sinh và lịch học mới."
+  },
+  "Messages": {
+    "noClassesFound": "Không tìm thấy lớp học nào cho bộ lọc này."
   }
 }

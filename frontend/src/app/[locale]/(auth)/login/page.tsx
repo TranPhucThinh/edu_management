@@ -3,8 +3,8 @@
 import { BookOpen, Eye, EyeOff, Loader2, Lock, User } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/src/components/ui/button'
-import { ContentCard } from '@/src/components/ContentCard'
+import { Button } from '@/components/ui/button'
+import { ContentCard } from '@/components/common/ContentCard'
 import {
   Form,
   FormControl,
@@ -12,11 +12,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/src/components/ui/form'
-import { Input } from '@/src/components/ui/input'
-import { useRouter } from '@/src/i18n/navigation'
-import { useLoginForm } from '@/src/hooks'
-import { createLoginSchema } from '@/src/lib/schemas/auth'
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { useRouter } from '@/i18n/navigation'
+import { useLoginForm } from '@/hooks'
+import { createLoginSchema } from '@/lib/schemas/auth'
 
 export default function LoginPage() {
   const tCommon = useTranslations('Common')

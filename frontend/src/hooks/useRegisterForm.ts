@@ -7,11 +7,11 @@ import type { UseFormReturn } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import type { z } from 'zod'
 
-import { getRefreshTokenCookieExpiry } from '@/src/lib/auth-cookies'
-import { useRouter } from '@/src/i18n/navigation'
-import { api } from '@/src/lib/api'
-import { getErrorMessage } from '@/src/lib/api-messages'
-import type { RegisterFormValues } from '@/src/lib/schemas/auth'
+import { getRefreshTokenCookieExpiry } from '@/lib/auth-cookies'
+import { useRouter } from '@/i18n/navigation'
+import { api } from '@/lib/api'
+import { getErrorMessage } from '@/lib/api-messages'
+import type { RegisterFormValues } from '@/lib/schemas/auth'
 
 export type UseRegisterFormOptions = {
   /** Zod schema from createRegisterSchema(tValidation) */
@@ -64,7 +64,7 @@ export function useRegisterForm({
         fullName: data.fullName,
       })
 
-      const { accessToken, refreshToken, fullName } = response.data
+      const { accessToken, refreshToken, fullName, teacherId } = response.data
 
       const decoded = jwtDecode<{ exp: number }>(accessToken)
       const expiresDate = new Date(decoded.exp * 1000)
@@ -84,6 +84,12 @@ export function useRegisterForm({
         expires: refreshExpiry,
         path: '/',
       })
+      if (teacherId) {
+        Cookies.set('teacherId', teacherId, {
+          expires: refreshExpiry,
+          path: '/',
+        })
+      }
 
       router.push(redirectTo)
     } catch (error) {

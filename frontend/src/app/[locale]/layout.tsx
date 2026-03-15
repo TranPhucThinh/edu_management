@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 
-import { routing } from "@/src/i18n/routing";
+import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { Toaster } from "@/components/ui/sonner";
 

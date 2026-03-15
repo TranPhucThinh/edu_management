@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { toast } from "sonner";
 import { jwtDecode } from "jwt-decode";
 
-import { getRefreshTokenCookieExpiry } from "@/src/lib/auth-cookies";
+import { getRefreshTokenCookieExpiry } from "@/lib/auth-cookies";
 import {
   getApiMessage,
   getErrorMessage,
@@ -108,8 +108,7 @@ apiClient.interceptors.response.use(
         return Promise.reject(error);
       }
 
-      const hasRefresh =
-        Cookies.get("refreshToken") && Cookies.get("teacherId");
+      const hasRefresh = !!Cookies.get("refreshToken");
       if (!hasRefresh) {
         handleForceLogout();
         return Promise.reject(error);
@@ -131,7 +130,7 @@ apiClient.interceptors.response.use(
       }
     }
 
-    // Các mã lỗi khác: toast (trừ 400 validation để form tự xử lý)
+    //  Các mã lỗi khác: toast (trừ 400 validation để form tự xử lý)
     const isLoginRequest =
       typeof url === "string" && url.includes("/auth/login");
     switch (status) {
