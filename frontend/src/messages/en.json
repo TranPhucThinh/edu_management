@@ -31,12 +31,24 @@
     "VALIDATION__FULLNAME_TOO_SHORT": "Fullname is too short (minimum 2 characters).",
     "AUTH__EMAIL_ALREADY_EXISTS": "Email already exists."
   },
+  "Status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
   "Common": {
     "appName": "Edu Manager",
     "loading": "Processing...",
+    "retry": "Retry",
     "support": "Technical Support",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "edit": "Edit",
+    "remove": "Remove",
+    "perSession": "Per Session",
+    "monthlyFixed": "Monthly Fixed",
+    "defaultFee": "Default Fee",
+    "defaultFeePlaceholder": "e.g. 1000",
+    "tuitionType": "Tuition Type"
   },
   "Login": {
     "title": "Welcome back!",
@@ -90,6 +102,7 @@
   },
   "Nav": {
     "home": "Dashboard",
+    "courses": "Courses",
     "classes": "Classes",
     "students": "Students",
     "finance": "Finance"
@@ -98,20 +111,42 @@
     "title": "Classes",
     "allClasses": "All Classes",
     "active": "Active",
-    "archived": "Archived",
-    "upcoming": "Upcoming",
+    "inactive": "Inactive",
     "student": "Student",
     "students": "Students",
     "viewDetails": "View Details",
-    "statusActive": "ACTIVE",
-    "statusArchived": "ARCHIVED",
-    "statusUpcoming": "UPCOMING",
     "searchPlaceholder": "Search school records...",
     "createNewClass": "Create New Class",
     "addNewClass": "Add New Class",
     "addNewClassDescription": "Set up a new course session and student list."
   },
+  "Courses": {
+    "title": "Courses",
+    "allCourses": "All Courses",
+    "active": "Active",
+    "inactive": "Inactive",
+    "createNewCourse": "Create New Course",
+    "createNewCourseDescription": "Enter the details for the new course grade entry.",
+    "student": "Student",
+    "students": "Students",
+    "field": {
+      "name": "Name",
+      "namePlaceholder": "e.g. English 101"
+    },
+    "validation": {
+      "nameRequired": "Course name is required.",
+      "defaultFeeMin": "Default fee must be 0 or greater."
+    },
+    "success": {
+      "courseCreated": "Course created successfully."
+    },
+    "button": {
+      "createCourse": "Create Course"
+    }
+  },
   "Messages": {
-    "noClassesFound": "No classes found for this filter."
+    "noClassesFound": "No classes found for this filter.",
+    "noCoursesFound": "No courses found for this filter.",
+    "coursesLoadError": "Could not load courses. Please try again."
   }
 }

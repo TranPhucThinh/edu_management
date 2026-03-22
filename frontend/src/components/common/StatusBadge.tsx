@@ -1,13 +1,14 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-export type StatusBadgeStatus = "active" | "archived" | "upcoming";
+/** Internal key for styling maps (derived from `isActive`). */
+type StatusBadgeKey = "active" | "inactive";
 
 export type StatusBadgeVariant = "chip" | "pill";
 
 interface StatusBadgeProps {
-  /** Semantic status key – can be reused across domains (classes, courses, etc.) */
-  status: StatusBadgeStatus;
+  /** Row active flag from API (e.g. Prisma `isActive`). */
+  isActive: boolean;
   /** Visible text label, already translated if needed */
   label: string;
   /** Visual style, default is compact chip style */
@@ -15,42 +16,41 @@ interface StatusBadgeProps {
   className?: string;
 }
 
-const chipStatusClasses: Record<StatusBadgeStatus, string> = {
+const chipStatusClasses: Record<StatusBadgeKey, string> = {
   active: "bg-status-active/10 text-status-active",
-  archived: "bg-status-archived/40 text-status-archived-foreground",
-  upcoming: "bg-status-upcoming/10 text-status-upcoming-foreground",
+  inactive: "bg-status-inactive/40 text-status-inactive-foreground",
 };
 
-const pillStatusClasses: Record<StatusBadgeStatus, string> = {
+const pillStatusClasses: Record<StatusBadgeKey, string> = {
   active: "bg-status-active/10 text-status-active",
-  archived: "bg-status-archived/10 text-status-archived-foreground",
-  upcoming: "bg-status-upcoming/10 text-status-upcoming-foreground",
+  inactive: "bg-status-inactive/10 text-status-inactive-foreground",
 };
 
-const pillDotClasses: Record<StatusBadgeStatus, string> = {
+const pillDotClasses: Record<StatusBadgeKey, string> = {
   active: "bg-status-active",
-  archived: "bg-status-archived",
-  upcoming: "bg-status-upcoming",
+  inactive: "bg-status-inactive",
 };
 
 export function StatusBadge({
-  status,
+  isActive,
   label,
   variant = "chip",
   className,
 }: StatusBadgeProps) {
+  const key: StatusBadgeKey = isActive ? "active" : "inactive";
+
   if (variant === "pill") {
     return (
       <Badge
         variant="outline"
         className={cn(
           "px-2.5 py-0.5 text-xs font-semibold tracking-wider uppercase flex items-center gap-1 border-none",
-          pillStatusClasses[status],
+          pillStatusClasses[key],
           className,
         )}
       >
         <span
-          className={cn("w-1.5 h-1.5 rounded-full", pillDotClasses[status])}
+          className={cn("w-1.5 h-1.5 rounded-full", pillDotClasses[key])}
         />
         {label}
       </Badge>
@@ -62,7 +62,7 @@ export function StatusBadge({
       variant="outline"
       className={cn(
         "px-2.5 py-0.5 text-xs font-bold tracking-wider bg-card border-none",
-        chipStatusClasses[status],
+        chipStatusClasses[key],
         className,
       )}
     >
@@ -70,4 +70,3 @@ export function StatusBadge({
     </Badge>
   );
 }
-

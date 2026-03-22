@@ -11,12 +11,13 @@ import {
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/components/ui/button'
 import { ContentCard } from '@/components/common/ContentCard'
+import { LanguageSwitcher } from '@/components/common/LanguageSwitcher'
 import { FormInputField } from '@/components/form'
+import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { useRouter } from '@/i18n/navigation'
 import { useRegisterForm } from '@/hooks'
+import { useRouter } from '@/i18n/navigation'
 import { createRegisterSchema } from '@/lib/schemas/auth'
 
 export default function RegisterPage() {
@@ -43,7 +44,8 @@ export default function RegisterPage() {
   const rootError = formState.errors.root?.message as string | undefined
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-muted p-4">
+    <div className="relative flex min-h-screen flex-col items-center justify-center bg-muted p-4">
+      <LanguageSwitcher className="absolute right-4 top-4" />
       <div className="mb-8 flex flex-col items-center gap-2">
         <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-primary shadow-lg shadow-primary/30">
           <BookOpen className="h-6 w-6 text-primary-foreground" />
@@ -56,6 +58,7 @@ export default function RegisterPage() {
       <ContentCard
         title={tRegister('title')}
         description={tRegister('description')}
+        className="max-w-[400px]"
         footer={
           <p className="text-xs text-muted-foreground text-center">
             {tRegister('hasAccount')}{' '}

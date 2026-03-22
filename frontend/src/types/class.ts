@@ -1,11 +1,9 @@
-export type ClassStatus = "active" | "archived" | "upcoming";
-
-export interface ClassItem {
+export type ClassItem = {
   id: string;
   name: string;
   subject: string;
   schedule: string[];
   studentCount: number;
-  status: ClassStatus;
+  isActive: boolean;
   imageUrl?: string;
 }

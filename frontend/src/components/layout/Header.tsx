@@ -70,7 +70,7 @@ export default function Header() {
         </Button>
 
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className='md:hidden'>
             <Avatar className="h-10 w-10 border-2 border-background shadow-sm ring-1 ring-border md:hidden">
               <AvatarImage
                 src="https:/api.dicebear.com/7.x/avataaars/svg?seed=Felix"

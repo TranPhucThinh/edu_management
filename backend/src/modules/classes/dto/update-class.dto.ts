@@ -1,30 +1,26 @@
+import { Transform } from 'class-transformer';
 import {
-  IsEnum,
   IsArray,
-  IsNumber,
+  IsEnum,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Min,
-  IsUUID,
   ValidateIf,
 } from 'class-validator';
-import { Transform } from 'class-transformer';
-import { ErrorCodes } from '../../../common/error-codes';
 import { TuitionType } from '../../courses/dto/create-course.dto';
+import { ErrorCodes } from '../../../common/error-codes';
 
-export class CreateClassDto {
+export class UpdateClassDto {
+  @IsOptional()
   @IsString()
   @IsNotEmpty({ message: ErrorCodes.VALIDATION.REQUIRED })
-  name: string;
+  name?: string;
 
-  @IsUUID()
-  @IsNotEmpty({ message: ErrorCodes.VALIDATION.REQUIRED })
-  courseId: string;
-
+  @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  @IsOptional()
   schedule?: string[];
 
   // Optional override for fee coming from Course (set to null to fallback to Course)
@@ -39,3 +35,4 @@ export class CreateClassDto {
   @Transform(({ value }) => (value === null ? null : Number(value)))
   defaultFee?: number | null;
 }
+

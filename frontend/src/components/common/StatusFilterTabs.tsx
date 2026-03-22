@@ -1,44 +1,58 @@
-import { cn } from '@/lib/utils'
 import { useTranslations } from 'next-intl'
 
 import { Button } from '@/components/ui/button'
-import { FILTER_CLASSES, FilterClasses } from '@/constants/FilterClasses'
+import { cn } from '@/lib/utils'
+import {
+  STATUS_FILTER_VALUES,
+  type StatusFilterFlag,
+} from '@/constants/Status'
 
-export type FilterValue = (typeof FILTER_CLASSES)[number]['value']
+export type StatusFilterValue = 'all' | StatusFilterFlag
 
-interface ClassFilterTabsProps {
-  activeFilter: FilterClasses
-  onFilterChange: (filter: FilterClasses) => void
+interface StatusFilterTabsProps {
+  activeFilter: StatusFilterValue
+  onFilterChange: (value: StatusFilterValue) => void
+  /** Already translated label for the "all" tab, e.g. "All Classes" */
+  allLabel: string
 }
 
-export function ClassFilterTabs({
+export function StatusFilterTabs({
   activeFilter,
   onFilterChange,
-}: ClassFilterTabsProps) {
-  const t = useTranslations('Classes')
+  allLabel,
+}: StatusFilterTabsProps) {
+  const tStatus = useTranslations('Status')
+
+  const filters: { value: StatusFilterValue; label: string }[] = [
+    { value: 'all', label: allLabel },
+    ...STATUS_FILTER_VALUES.map((isActive) => ({
+      value: isActive as StatusFilterFlag,
+      label: tStatus(isActive ? 'active' : 'inactive'),
+    })),
+  ]
 
   return (
-    <div className="w-full mb-2 md:mb-6">
+    <div className="w-full mb-2">
       {/* --- DESKTOP VIEW (Underlined Tabs) --- */}
       <div className="hidden md:flex border-b border-border mb-6">
         <div className="flex gap-8">
-          {FILTER_CLASSES.map((filter) => {
-            const isActive = activeFilter === filter.value
+          {filters.map((filter) => {
+            const isSelected = activeFilter === filter.value
 
             return (
               <Button
-                key={filter.value}
+                key={filter.value === 'all' ? 'all' : String(filter.value)}
                 variant="ghost"
                 onClick={() => onFilterChange(filter.value)}
                 className={cn(
                   'pb-3 h-auto px-0 text-sm font-medium transition-colors relative rounded-none',
-                  isActive
+                  isSelected
                     ? 'text-primary'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
-                {t(filter.label)}
-                {isActive && (
+                {filter.label}
+                {isSelected && (
                   <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
                 )}
               </Button>
@@ -50,23 +64,23 @@ export function ClassFilterTabs({
       {/* --- MOBILE VIEW (Scrolling Pills) --- */}
       <div className="md:hidden w-full overflow-x-auto pb-4 no-scrollbar">
         <div className="flex gap-3 w-max">
-          {FILTER_CLASSES.map((filter) => {
-            const isActive = activeFilter === filter.value
+          {filters.map((filter) => {
+            const isSelected = activeFilter === filter.value
 
             return (
               <Button
-                key={filter.value}
-                variant={isActive ? 'default' : 'outline'}
+                key={filter.value === 'all' ? 'all' : String(filter.value)}
+                variant={isSelected ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => onFilterChange(filter.value)}
                 className={cn(
                   'rounded-full px-5 text-sm font-medium transition-colors',
-                  isActive
+                  isSelected
                     ? 'bg-primary text-primary-foreground hover:bg-primary/90'
                     : 'bg-background text-muted-foreground border-border hover:bg-accent',
                 )}
               >
-                {t(filter.label)}
+                {filter.label}
               </Button>
             )
           })}

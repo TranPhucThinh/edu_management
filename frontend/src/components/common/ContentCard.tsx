@@ -11,7 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 
 interface ContentCardProps {
-  title: React.ReactNode;
+  title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
   children: React.ReactNode;
@@ -33,7 +33,7 @@ export function ContentCard({
 }: ContentCardProps) {
   return (
     <Card
-      className={cn("w-full max-w-[400px] shadow-xl border-border", className)}
+      className={cn("w-full shadow-xl border-border", className)}
     >
       <CardHeader className={cn("space-y-1 text-center", headerClassName)}>
         <CardTitle className="text-xl font-semibold">{title}</CardTitle>

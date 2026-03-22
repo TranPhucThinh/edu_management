@@ -79,9 +79,9 @@ export function FormSelectField<
           >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent position="popper" sideOffset={4}>
             {options.map((option, index) => (
-              <SelectItem key={index} value={String(getValue(option))}>
+              <SelectItem  key={index} value={String(getValue(option))}>
                 {getLabel(option)}
               </SelectItem>
             ))}

@@ -31,12 +31,24 @@
     "VALIDATION__FULLNAME_TOO_SHORT": "Tên quá ngắn (tối thiểu 2 ký tự).",
     "AUTH__EMAIL_ALREADY_EXISTS": "Email đã tồn tại."
   },
+  "Status": {
+    "active": "Hoạt động",
+    "inactive": "Tạm dừng"
+  },
   "Common": {
     "appName": "Edu Manager",
     "loading": "Đang xử lý...",
+    "retry": "Thử lại",
     "support": "Hỗ trợ kỹ thuật",
     "settings": "Cài đặt",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "edit": "Sửa",
+    "remove": "Xóa",
+    "perSession": "Theo buổi",
+    "monthlyFixed": "Cố định hàng tháng",
+    "defaultFee": "Phí mặc định",
+    "defaultFeePlaceholder": "ví dụ: 1000",
+    "tuitionType": "Loại học phí"
   },
   "Login": {
     "title": "Chào mừng trở lại!",
@@ -90,6 +102,7 @@
   },
   "Nav": {
     "home": "Trang chủ",
+    "courses": "Khóa học",
     "classes": "Lớp học",
     "students": "Học sinh",
     "finance": "Tài chính"
@@ -97,21 +110,43 @@
   "Classes": {
     "title": "Lớp học",
     "allClasses": "Tất cả lớp",
-    "active": "Đang học",
-    "archived": "Đã lưu trữ",
-    "upcoming": "Sắp tới",
+    "active": "Hoạt động",
+    "inactive": "Tạm dừng",
     "student": "Học sinh",
     "students": "Học sinh",
     "viewDetails": "Xem chi tiết",
-    "statusActive": "ĐANG HỌC",
-    "statusArchived": "ĐÃ LƯU TRỮ",
-    "statusUpcoming": "SẮP TỚI",
     "searchPlaceholder": "Tìm kiếm hồ sơ trường học...",
     "createNewClass": "Tạo lớp học mới",
     "addNewClass": "Thêm lớp học mới",
     "addNewClassDescription": "Thiết lập danh sách học sinh và lịch học mới."
   },
+  "Courses": {
+    "title": "Khóa học",
+    "allCourses": "Tất cả khóa học",
+    "active": "Hoạt động",
+    "inactive": "Tạm dừng",
+    "createNewCourse": "Tạo khóa học mới",
+    "createNewCourseDescription": "Nhập thông tin cho khóa học mới.",
+    "student": "Học sinh",
+    "students": "Học sinh",
+    "field": {
+      "name": "Tên",
+      "namePlaceholder": "ví dụ: Tiếng Anh 101"
+    },
+    "validation": {
+      "nameRequired": "Tên khóa học là bắt buộc.",
+      "defaultFeeMin": "Học phí mặc định phải từ 0 trở lên."
+    },
+    "success": {
+      "courseCreated": "Đã tạo khóa học thành công."
+    },
+    "button": {
+      "createCourse": "Tạo khóa học"
+    }
+  },
   "Messages": {
-    "noClassesFound": "Không tìm thấy lớp học nào cho bộ lọc này."
+    "noClassesFound": "Không tìm thấy lớp học nào cho bộ lọc này.",
+    "noCoursesFound": "Không tìm thấy khóa học nào cho bộ lọc này.",
+    "coursesLoadError": "Không tải được danh sách khóa học. Vui lòng thử lại."
   }
 }

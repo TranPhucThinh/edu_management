@@ -1,5 +1,3 @@
-'use client';
-
 import { HeaderActionsProvider } from "@/components/layout/HeaderActionsProvider";
 import MobileNav from "@/components/layout/MobileNav";
 import Sidebar from "@/components/layout/Sidebar";

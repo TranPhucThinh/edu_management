@@ -10,7 +10,7 @@ import type { FormFieldLayoutProps } from "./FormFieldLayout";
 import { FormFieldLayout } from "./FormFieldLayout";
 
 const defaultInputClassName =
-  "h-11 bg-muted border-input focus:bg-background transition-all";
+  "h-11 border-input focus:bg-background transition-all";
 
 export interface FormInputFieldProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -71,6 +71,7 @@ export function FormInputField<
             disabled={disabled}
             className={cn(
               defaultInputClassName,
+              disabled && "bg-muted",
               leftIcon != null && "pl-9",
               rightSlot != null && "pr-9",
               inputClassName,

@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode'
 
-import { REFRESH_TOKEN_COOKIE_DAYS } from '@/constants/auth'
+import { REFRESH_TOKEN_COOKIE_DAYS } from '@/constants/Auth'
 
 /**
  * Returns the expiry date for refreshToken and fullName cookies.
